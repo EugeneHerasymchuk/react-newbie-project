@@ -14,12 +14,18 @@ const burgerControls = props => {
       }}
     />
   ));
-  return <div className={BurgerControls}>{controlItems}</div>;
+  return (
+    <div className={BurgerControls}>
+      {props.price}
+      {controlItems}
+    </div>
+  );
 };
 
 burgerControls.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string),
-  onChangeIngredient: PropTypes.func
+  onChangeIngredient: PropTypes.func,
+  price: PropTypes.number
 };
 
 export default burgerControls;
