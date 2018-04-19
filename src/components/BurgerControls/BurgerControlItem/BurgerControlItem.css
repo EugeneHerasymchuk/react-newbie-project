@@ -1,0 +1,18 @@
+.BurgerControlItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.BurgerControlItem .Label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.BurgerControlItem .Plus {
+  cursor: pointer;
+}
+
+.BurgerControlItem .Minus {
+  cursor: pointer;
+}
