@@ -18,7 +18,9 @@ const burgerControls = props => {
     <div className={BurgerControls}>
       <div className={Price}> {props.price} </div>
       {controlItems}
-      <button disabled={!props.isPurchasable}>Order Now</button>
+      <button disabled={!props.isPurchasable} onClick={props.onOrderClick}>
+        Order Now
+      </button>
     </div>
   );
 };
@@ -27,7 +29,8 @@ burgerControls.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string),
   onChangeIngredient: PropTypes.func,
   price: PropTypes.number,
-  isPurchasable: PropTypes.bool
+  isPurchasable: PropTypes.bool,
+  onOrderClick: PropTypes.func
 };
 
 export default burgerControls;

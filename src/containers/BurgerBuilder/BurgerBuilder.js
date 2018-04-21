@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Aux from 'src/hoc/Aux';
 import Burger from 'src/components/Burger/Burger';
 import BurgerControls from 'src/components/BurgerControls/BurgerControls';
+import BurgerOrderModal from '../../components/BurgerOrderModal/BurgerOrderModal';
 
 class BurgerBuilder extends Component {
   state = {
@@ -17,7 +18,8 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 2,
     startPrice: 2,
-    purchasable: false
+    purchasable: false,
+    modalShown: false
   };
 
   render() {
@@ -29,10 +31,49 @@ class BurgerBuilder extends Component {
           onChangeIngredient={this.changeIngredientHandler}
           ingredients={Object.keys(this.state.ingredients)}
           isPurchasable={this.state.purchasable}
+          onOrderClick={this.orderClickHandler}
+        />
+        <BurgerOrderModal
+          ingredients={this.state.ingredients}
+          modalShown={this.state.modalShown}
+          closeModalHandler={this.closeModalHandler}
+          successModalHandler={this.makeOrderHandler}
         />
       </Aux>
     );
   }
+
+  orderClickHandler = () => {
+    this.setState({
+      modalShown: true
+    });
+  };
+
+  closeModalHandler = () => {
+    console.log('close');
+
+    this.setState({
+      modalShown: false
+    });
+  };
+
+  makeOrderHandler = () => {
+    console.log('sent API call for making the order');
+
+    const emptyIngredients = { ...this.state.ingredients };
+
+    for (let key in emptyIngredients) {
+      emptyIngredients[key] = 0;
+    }
+
+    this.setState({
+      ingredients: emptyIngredients
+    });
+
+    this.closeModalHandler();
+
+    alert('Your order is done. Wait for it');
+  };
 
   changeIngredientHandler = (key, isRaise) => {
     console.log(key, this.state.ingredients[key]);
