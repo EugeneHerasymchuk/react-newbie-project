@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BurgerControlItem from './BurgerControlItem/BurgerControlItem';
 
-import { BurgerControls } from './BurgerControls.css';
+import { BurgerControls, Price } from './BurgerControls.css';
 
 const burgerControls = props => {
   const controlItems = props.ingredients.map(ingredientName => (
@@ -16,8 +16,9 @@ const burgerControls = props => {
   ));
   return (
     <div className={BurgerControls}>
-      {props.price}
+      <div className={Price}> {props.price} </div>
       {controlItems}
+      <button disabled={!props.isPurchasable}>Order Now</button>
     </div>
   );
 };
@@ -25,7 +26,8 @@ const burgerControls = props => {
 burgerControls.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string),
   onChangeIngredient: PropTypes.func,
-  price: PropTypes.number
+  price: PropTypes.number,
+  isPurchasable: PropTypes.bool
 };
 
 export default burgerControls;

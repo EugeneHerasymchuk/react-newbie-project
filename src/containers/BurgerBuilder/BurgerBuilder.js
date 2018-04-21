@@ -16,7 +16,8 @@ class BurgerBuilder extends Component {
       meat: 0
     },
     totalPrice: 2,
-    startPrice: 2
+    startPrice: 2,
+    purchasable: false
   };
 
   render() {
@@ -27,6 +28,7 @@ class BurgerBuilder extends Component {
           price={this.state.totalPrice}
           onChangeIngredient={this.changeIngredientHandler}
           ingredients={Object.keys(this.state.ingredients)}
+          isPurchasable={this.state.purchasable}
         />
       </Aux>
     );
@@ -46,7 +48,7 @@ class BurgerBuilder extends Component {
       [key]: newCountIngredient
     };
 
-    // Calculate new price
+    // Calculate new price and is the order purchasable or not
     let newPrice = Object.keys(newPropsIngredients)
       .map(key => {
         return newPropsIngredients[key] * this.state.prices[key];
@@ -55,7 +57,8 @@ class BurgerBuilder extends Component {
 
     this.setState({
       ingredients: newPropsIngredients,
-      totalPrice: newPrice
+      totalPrice: newPrice,
+      purchasable: newPrice > this.state.startPrice
     });
   };
 }
