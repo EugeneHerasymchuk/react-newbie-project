@@ -38,6 +38,7 @@ class BurgerBuilder extends Component {
           modalShown={this.state.modalShown}
           closeModalHandler={this.closeModalHandler}
           successModalHandler={this.makeOrderHandler}
+          totalPrice={this.state.totalPrice}
         />
       </Aux>
     );
@@ -66,8 +67,11 @@ class BurgerBuilder extends Component {
       emptyIngredients[key] = 0;
     }
 
+    // Reset the state to default
     this.setState({
-      ingredients: emptyIngredients
+      ingredients: emptyIngredients,
+      totalPrice: this.state.startPrice,
+      purchasable: false
     });
 
     this.closeModalHandler();

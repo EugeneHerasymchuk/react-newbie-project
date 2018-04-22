@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BurgerControlItem from './BurgerControlItem/BurgerControlItem';
+import { Button } from 'react-toolbox/lib/button';
 
-import { BurgerControls, Price } from './BurgerControls.css';
+import { BurgerControls, Price, OrderButton } from './BurgerControls.css';
 
 const burgerControls = props => {
   const controlItems = props.ingredients.map(ingredientName => (
@@ -18,9 +19,14 @@ const burgerControls = props => {
     <div className={BurgerControls}>
       <div className={Price}> {props.price} </div>
       {controlItems}
-      <button disabled={!props.isPurchasable} onClick={props.onOrderClick}>
-        Order Now
-      </button>
+      <Button
+        className={OrderButton}
+        label="Order Now"
+        raised
+        primary
+        disabled={!props.isPurchasable}
+        onClick={props.onOrderClick}
+      />
     </div>
   );
 };

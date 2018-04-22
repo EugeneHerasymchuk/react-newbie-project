@@ -1,8 +1,13 @@
 .BurgerControls {
-  border-style: dotted solid;
+  background-color: rgba(250, 101, 10, 0.49);
 }
 
 .Price {
   text-align: center;
   font-size: 1.5rem;
+}
+
+.OrderButton {
+  margin-top: 20px;
+  margin-left: 45%;
 }

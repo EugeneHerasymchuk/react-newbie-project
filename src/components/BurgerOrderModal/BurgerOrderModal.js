@@ -20,6 +20,7 @@ const BurgerOrderModal = props => {
       cancelButtonText={'Cancel'}
       successButtonText={'Order'}
     >
+      <div>Total price: ${props.totalPrice}</div>
       {ingredientsList}
     </OrderModal>
   );
@@ -29,7 +30,8 @@ BurgerOrderModal.propTypes = {
   modalShown: PropTypes.bool,
   closeModalHandler: PropTypes.func,
   successModalHandler: PropTypes.func,
-  ingredients: PropTypes.object
+  ingredients: PropTypes.object,
+  totalPrice: PropTypes.number
 };
 
 export default BurgerOrderModal;
