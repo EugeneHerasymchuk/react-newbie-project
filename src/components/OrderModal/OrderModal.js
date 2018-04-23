@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import Dialog from 'react-toolbox/lib/dialog';
 
 const OrderModal = props => {
-  const actions = [
-    { label: props.cancelButtonText, onClick: props.onCancel },
-    { label: props.successButtonText, onClick: props.onSuccess }
-  ];
+  const actions = props.onCancel &&
+    props.onSuccess && [
+      { label: props.cancelButtonText, onClick: props.onCancel },
+      { label: props.successButtonText, onClick: props.onSuccess }
+    ];
 
   return (
     <Dialog
@@ -24,11 +25,11 @@ const OrderModal = props => {
 OrderModal.propTypes = {
   title: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  cancelButtonText: PropTypes.string.isRequired,
-  successButtonText: PropTypes.string.isRequired,
-  children: PropTypes.any.isRequired
+  onCancel: PropTypes.func,
+  onSuccess: PropTypes.func,
+  cancelButtonText: PropTypes.string,
+  successButtonText: PropTypes.string,
+  children: PropTypes.any
 };
 
 export default OrderModal;

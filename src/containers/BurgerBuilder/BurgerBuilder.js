@@ -5,6 +5,7 @@ import BurgerControls from 'src/components/BurgerControls/BurgerControls';
 import BurgerOrderModal from '../../components/BurgerOrderModal/BurgerOrderModal';
 import api from 'src/services/ApiService';
 import to from 'await-to-js';
+import errorHandler from 'src/hoc/errorHandler/errorHandler';
 
 class BurgerBuilder extends Component {
   state = {
@@ -63,14 +64,12 @@ class BurgerBuilder extends Component {
   };
 
   makeOrderHandler = async () => {
-    let err, response;
-
     this.setState({
       loading: true
     });
 
-    [err, response] = await to(
-      api.post('/orders.json', {
+    const responseData = (await to(
+      api.post('/orders', {
         ingredients: this.state.ingredients,
         totalPrice: this.state.totalPrice,
         customer: {
@@ -79,27 +78,16 @@ class BurgerBuilder extends Component {
           hasDiscount: false
         }
       })
-    );
+    )).data;
 
     this.setState({
       loading: false
     });
 
-    if (err) {
-      console.error(err);
-
-      alert('Error occured. Try again');
-      return;
-    }
-
-    const responseData = response.data;
-
     console.log(responseData);
 
     this.cleanState();
     this.closeModalHandler();
-
-    alert('Your order is done. Wait for it');
   };
 
   cleanState = () => {
@@ -146,4 +134,4 @@ class BurgerBuilder extends Component {
   };
 }
 
-export default BurgerBuilder;
+export default errorHandler(BurgerBuilder, api);
