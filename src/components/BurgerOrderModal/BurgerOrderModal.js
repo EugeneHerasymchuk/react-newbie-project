@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import OrderModal from '../OrderModal/OrderModal';
+import ProgressBar from 'react-toolbox/lib/progress_bar';
+
+import { ProgressCircle } from './BurgerOrderModal.css';
 
 class BurgerOrderModal extends Component {
   static propTypes = {
@@ -8,12 +11,17 @@ class BurgerOrderModal extends Component {
     closeModalHandler: PropTypes.func.isRequired,
     successModalHandler: PropTypes.func.isRequired,
     ingredients: PropTypes.object.isRequired,
-    totalPrice: PropTypes.number.isRequired
+    totalPrice: PropTypes.number.isRequired,
+    children: PropTypes.any,
+    loading: PropTypes.bool.isRequired
   };
 
   shouldComponentUpdate(nextProps) {
     // Do not render if it's not shown
-    return nextProps.modalShown !== this.props.modalShown;
+    return (
+      nextProps.modalShown !== this.props.modalShown ||
+      this.props.loading !== nextProps.loading
+    );
   }
 
   render() {
@@ -34,8 +42,19 @@ class BurgerOrderModal extends Component {
         cancelButtonText={'Cancel'}
         successButtonText={'Order'}
       >
-        <div>Total price: ${this.props.totalPrice}</div>
-        {ingredientsList}
+        {this.props.loading ? (
+          <ProgressBar
+            className={ProgressCircle}
+            type="circular"
+            mode="indeterminate"
+            multicolor
+          />
+        ) : (
+          <div>
+            <span> Total price: ${this.props.totalPrice} </span>
+            {ingredientsList}
+          </div>
+        )}
       </OrderModal>
     );
   }

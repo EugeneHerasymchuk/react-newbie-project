@@ -3,6 +3,8 @@ import Aux from 'src/hoc/Aux';
 import Burger from 'src/components/Burger/Burger';
 import BurgerControls from 'src/components/BurgerControls/BurgerControls';
 import BurgerOrderModal from '../../components/BurgerOrderModal/BurgerOrderModal';
+import api from 'src/services/ApiService';
+import to from 'await-to-js';
 
 class BurgerBuilder extends Component {
   state = {
@@ -19,7 +21,8 @@ class BurgerBuilder extends Component {
     totalPrice: 2,
     startPrice: 2,
     purchasable: false,
-    modalShown: false
+    modalShown: false,
+    loading: false
   };
 
   render() {
@@ -36,6 +39,7 @@ class BurgerBuilder extends Component {
         <BurgerOrderModal
           ingredients={this.state.ingredients}
           modalShown={this.state.modalShown}
+          loading={this.state.loading}
           closeModalHandler={this.closeModalHandler}
           successModalHandler={this.makeOrderHandler}
           totalPrice={this.state.totalPrice}
@@ -58,9 +62,47 @@ class BurgerBuilder extends Component {
     });
   };
 
-  makeOrderHandler = () => {
-    console.log('sent API call for making the order');
+  makeOrderHandler = async () => {
+    let err, response;
 
+    this.setState({
+      loading: true
+    });
+
+    [err, response] = await to(
+      api.post('/orders.json', {
+        ingredients: this.state.ingredients,
+        totalPrice: this.state.totalPrice,
+        customer: {
+          name: 'Mark Twen',
+          status: 'guest',
+          hasDiscount: false
+        }
+      })
+    );
+
+    this.setState({
+      loading: false
+    });
+
+    if (err) {
+      console.error(err);
+
+      alert('Error occured. Try again');
+      return;
+    }
+
+    const responseData = response.data;
+
+    console.log(responseData);
+
+    this.cleanState();
+    this.closeModalHandler();
+
+    alert('Your order is done. Wait for it');
+  };
+
+  cleanState = () => {
     const emptyIngredients = { ...this.state.ingredients };
 
     for (let key in emptyIngredients) {
@@ -73,10 +115,6 @@ class BurgerBuilder extends Component {
       totalPrice: this.state.startPrice,
       purchasable: false
     });
-
-    this.closeModalHandler();
-
-    alert('Your order is done. Wait for it');
   };
 
   changeIngredientHandler = (key, isRaise) => {
