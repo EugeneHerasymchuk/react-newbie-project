@@ -56,8 +56,6 @@ class BurgerBuilder extends Component {
   };
 
   closeModalHandler = () => {
-    console.log('close');
-
     this.setState({
       modalShown: false
     });
@@ -68,7 +66,7 @@ class BurgerBuilder extends Component {
       loading: true
     });
 
-    const responseData = (await to(
+    await to(
       api.post('/orders', {
         ingredients: this.state.ingredients,
         totalPrice: this.state.totalPrice,
@@ -78,13 +76,11 @@ class BurgerBuilder extends Component {
           hasDiscount: false
         }
       })
-    )).data;
+    );
 
     this.setState({
       loading: false
     });
-
-    console.log(responseData);
 
     this.cleanState();
     this.closeModalHandler();
@@ -106,8 +102,6 @@ class BurgerBuilder extends Component {
   };
 
   changeIngredientHandler = (key, isRaise) => {
-    console.log(key, this.state.ingredients[key]);
-
     let newCountIngredient = isRaise
       ? this.state.ingredients[key] + 1
       : this.state.ingredients[key] - 1;
