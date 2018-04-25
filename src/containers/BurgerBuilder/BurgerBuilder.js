@@ -4,7 +4,6 @@ import Burger from 'src/components/Burger/Burger';
 import BurgerControls from 'src/components/BurgerControls/BurgerControls';
 import BurgerOrderModal from '../../components/BurgerOrderModal/BurgerOrderModal';
 import api from 'src/services/ApiService';
-import to from 'await-to-js';
 import errorHandler from 'src/hoc/errorHandler/errorHandler';
 
 class BurgerBuilder extends Component {
@@ -66,17 +65,15 @@ class BurgerBuilder extends Component {
       loading: true
     });
 
-    await to(
-      api.post('/orders', {
-        ingredients: this.state.ingredients,
-        totalPrice: this.state.totalPrice,
-        customer: {
-          name: 'Mark Twen',
-          status: 'guest',
-          hasDiscount: false
-        }
-      })
-    );
+    await api.post('/orders.json', {
+      ingredients: this.state.ingredients,
+      totalPrice: this.state.totalPrice,
+      customer: {
+        name: 'Mark Twen',
+        status: 'guest',
+        hasDiscount: false
+      }
+    });
 
     this.setState({
       loading: false
