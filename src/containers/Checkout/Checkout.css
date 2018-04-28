@@ -1,0 +1,16 @@
+.CheckoutContainer {
+  width: 80%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 600px) {
+  .CheckoutContainer {
+    width: 500px;
+  }
+}

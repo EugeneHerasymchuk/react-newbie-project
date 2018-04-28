@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Aux from 'src/hoc/Aux';
 import Burger from 'src/components/Burger/Burger';
 import BurgerControls from 'src/components/BurgerControls/BurgerControls';
@@ -7,6 +8,10 @@ import api from 'src/services/ApiService';
 import errorHandler from 'src/hoc/errorHandler/errorHandler';
 
 class BurgerBuilder extends Component {
+  static propTypes = {
+    history: PropTypes.object
+  };
+
   state = {
     prices: {
       salad: 0.6,
@@ -61,6 +66,14 @@ class BurgerBuilder extends Component {
   };
 
   makeOrderHandler = async () => {
+    // TODO: redirect to the Checkout route
+    console.log(this.props);
+
+    this.closeModalHandler();
+
+    this.props.history.push('/checkout');
+
+    /*
     this.setState({
       loading: true
     });
@@ -81,6 +94,7 @@ class BurgerBuilder extends Component {
 
     this.cleanState();
     this.closeModalHandler();
+    */
   };
 
   cleanState = () => {
