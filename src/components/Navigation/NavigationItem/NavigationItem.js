@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { NavigationItem } from './NavigationItem.css';
+import { NavLink } from 'react-router-dom';
+import { NavigationItem, activeNavLink } from './NavigationItem.css';
 
 const navigationItem = ({ link, title }) => {
   return (
     <li className={NavigationItem}>
-      <a href={link}> {title} </a>
+      <NavLink to={link} exact activeClassName={activeNavLink}>
+        {title}
+      </NavLink>
     </li>
   );
 };

@@ -11,7 +11,7 @@ const toolbar = () => {
       <Logo />
       <ul className={classes.NavigationItems}>
         <NavigationItem link="/" title="Burger Builder" />
-        <NavigationItem link="/" title="Checkout" />
+        <NavigationItem link="/checkout" title="Checkout" />
       </ul>
     </header>
   );
