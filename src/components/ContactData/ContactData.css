@@ -1,0 +1,17 @@
+.Contact {
+  -webkit-box-shadow: 0px 0px 42px -5px rgba(250, 235, 137, 0.73);
+  -moz-box-shadow: 0px 0px 42px -5px rgba(250, 235, 137, 0.73);
+  box-shadow: 0px 0px 42px -5px rgba(250, 235, 137, 0.73);
+  padding: 20px;
+  position: relative;
+  width: 60%;
+  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Contact button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+}

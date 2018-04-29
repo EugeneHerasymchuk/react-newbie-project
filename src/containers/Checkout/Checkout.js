@@ -2,30 +2,57 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Burger from 'src/components/Burger/Burger';
 import { CheckoutContainer } from './Checkout.css';
+import ContactData from 'src/components/ContactData/ContactData';
+import api from 'src/services/ApiService';
 
 class Checkout extends Component {
   state = {
-    ingredients: {
-      salad: 0,
-      cheese: 0,
-      meat: 0
-    }
+    ingredients: {},
+    totalPrice: 0,
+    loading: false
   };
 
   static propTypes = {
-    location: PropTypes.object
+    location: PropTypes.object,
+    history: PropTypes.object
+  };
+
+  makeCheckoutHandler = async contactData => {
+    this.setState({
+      loading: true
+    });
+
+    await api.post('/orders.json', {
+      ingredients: this.state.ingredients,
+      totalPrice: this.state.totalPrice,
+      customer: contactData
+    });
+
+    this.setState({
+      loading: false
+    });
+
+    // Redirect to Burger Builder
+    this.props.history.push({
+      pathname: '/'
+    });
   };
 
   componentDidMount() {
     const queryParams = new URLSearchParams(this.props.location.search);
     const paramsIngredients = {};
+    let price = 0;
     for (let param of queryParams) {
-      paramsIngredients[param[0]] = +param[1];
+      if (param[0] === 'price') {
+        price = param[1];
+      } else {
+        paramsIngredients[param[0]] = +param[1];
+      }
     }
-    console.log(paramsIngredients);
 
     this.setState({
-      ingredients: paramsIngredients
+      ingredients: paramsIngredients,
+      totalPrice: price
     });
   }
 
@@ -33,8 +60,7 @@ class Checkout extends Component {
     return (
       <div className={CheckoutContainer}>
         <Burger ingredients={this.state.ingredients} />
-        <span>This is a Checkout component</span>
-        <button>Make Checkout</button>
+        <ContactData makeOrder={this.makeCheckoutHandler} />
       </div>
     );
   }

@@ -65,47 +65,21 @@ class BurgerBuilder extends Component {
     });
   };
 
-  makeOrderHandler = async () => {
-    // TODO: redirect to the Checkout route
-    console.log(this.props);
-
+  makeOrderHandler = () => {
     this.closeModalHandler();
 
-    let queryParams = Object.keys(this.state.ingredients)
-      .map(key => {
-        return `${encodeURIComponent(key)}=${encodeURIComponent(
-          this.state.ingredients[key]
-        )}`;
-      })
-      .join('&');
+    let queryParams = Object.keys(this.state.ingredients).map(key => {
+      return `${encodeURIComponent(key)}=${encodeURIComponent(
+        this.state.ingredients[key]
+      )}`;
+    });
+
+    queryParams.push('price=' + this.state.totalPrice);
 
     this.props.history.push({
       pathname: '/checkout',
-      search: '?' + queryParams
+      search: '?' + queryParams.join('&')
     });
-
-    /*
-    this.setState({
-      loading: true
-    });
-
-    await api.post('/orders.json', {
-      ingredients: this.state.ingredients,
-      totalPrice: this.state.totalPrice,
-      customer: {
-        name: 'Mark Twen',
-        status: 'guest',
-        hasDiscount: false
-      }
-    });
-
-    this.setState({
-      loading: false
-    });
-
-    this.cleanState();
-    this.closeModalHandler();
-    */
   };
 
   cleanState = () => {
