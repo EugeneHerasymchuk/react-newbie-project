@@ -71,7 +71,18 @@ class BurgerBuilder extends Component {
 
     this.closeModalHandler();
 
-    this.props.history.push('/checkout');
+    let queryParams = Object.keys(this.state.ingredients)
+      .map(key => {
+        return `${encodeURIComponent(key)}=${encodeURIComponent(
+          this.state.ingredients[key]
+        )}`;
+      })
+      .join('&');
+
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryParams
+    });
 
     /*
     this.setState({
