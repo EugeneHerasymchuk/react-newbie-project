@@ -1,0 +1,25 @@
+.InputArea {
+  padding: 5px;
+  text-align: left;
+}
+
+.InputLabel {
+  display: block;
+}
+
+.InputElement {
+  width: 100%;
+  height: 20px;
+}
+
+.NotValid {
+  background-color: #fab8aa;
+}
+
+.NotValid:focus {
+  background-color: #fab8aa !important;
+}
+
+.InputElement:focus {
+  background-color: rgba(173, 216, 230, 0.36);
+}

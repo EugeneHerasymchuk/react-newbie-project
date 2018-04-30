@@ -5,13 +5,11 @@
   padding: 20px;
   position: relative;
   width: 60%;
-  height: 250px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 .Contact button {
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
+  margin: 10px auto;
 }
