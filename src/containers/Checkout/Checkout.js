@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { CLEAR_STATE } from 'src/store/actions';
+
 import Burger from 'src/components/Burger/Burger';
 import { CheckoutContainer } from './Checkout.css';
 import ContactData from 'src/components/ContactData/ContactData';
@@ -14,15 +18,14 @@ class Checkout extends Component {
 
   static propTypes = {
     location: PropTypes.object,
-    history: PropTypes.object
+    history: PropTypes.object,
+    clearState: PropTypes.func
   };
 
   makeCheckoutHandler = async contactData => {
     this.setState({
       loading: true
     });
-
-    console.log(contactData);
 
     await api.post('/orders.json', {
       ingredients: this.state.ingredients,
@@ -33,6 +36,9 @@ class Checkout extends Component {
     this.setState({
       loading: false
     });
+
+    // Clear the state
+    this.props.clearState();
 
     // Redirect to Burger Builder
     this.props.history.push({
@@ -68,4 +74,10 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+const mapDispatchToProps = dispatch => {
+  return {
+    clearState: () => dispatch({ type: CLEAR_STATE })
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Checkout);

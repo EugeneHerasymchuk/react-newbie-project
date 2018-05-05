@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  REMOVE_INGREDIENT,
-  ADD_INGREDIENT,
-  CLEAR_STATE
-} from 'src/store/actions';
+import { REMOVE_INGREDIENT, ADD_INGREDIENT } from 'src/store/actions';
 import PropTypes from 'prop-types';
 import Aux from 'src/hoc/Aux';
 import Burger from 'src/components/Burger/Burger';
@@ -81,10 +77,6 @@ class BurgerBuilder extends Component {
     });
   };
 
-  cleanState = () => {
-    this.props.clearState();
-  };
-
   changeIngredientHandler = (key, isRaise) => {
     if (isRaise) {
       this.props.addIngredient(key);
@@ -110,9 +102,6 @@ const mapDispatchToProps = dispatch => {
     },
     removeIngredient: name => {
       dispatch({ type: REMOVE_INGREDIENT, ingredientName: name });
-    },
-    clearState: () => {
-      dispatch({ type: CLEAR_STATE });
     }
   };
 };
