@@ -11,14 +11,14 @@ import api from 'src/services/ApiService';
 
 class Checkout extends Component {
   state = {
-    ingredients: {},
-    totalPrice: 0,
     loading: false
   };
 
   static propTypes = {
     location: PropTypes.object,
     history: PropTypes.object,
+    ingredients: PropTypes.object,
+    totalPrice: PropTypes.number,
     clearState: PropTypes.func
   };
 
@@ -28,8 +28,8 @@ class Checkout extends Component {
     });
 
     await api.post('/orders.json', {
-      ingredients: this.state.ingredients,
-      totalPrice: this.state.totalPrice,
+      ingredients: this.props.ingredients,
+      totalPrice: this.props.totalPrice,
       customer: contactData
     });
 
@@ -41,38 +41,25 @@ class Checkout extends Component {
     this.props.clearState();
 
     // Redirect to Burger Builder
-    this.props.history.push({
-      pathname: '/'
-    });
+    this.props.history.push('/');
   };
-
-  componentDidMount() {
-    const queryParams = new URLSearchParams(this.props.location.search);
-    const paramsIngredients = {};
-    let price = 0;
-    for (let param of queryParams) {
-      if (param[0] === 'price') {
-        price = param[1];
-      } else {
-        paramsIngredients[param[0]] = +param[1];
-      }
-    }
-
-    this.setState({
-      ingredients: paramsIngredients,
-      totalPrice: price
-    });
-  }
 
   render() {
     return (
       <div className={CheckoutContainer}>
-        <Burger ingredients={this.state.ingredients} />
+        <Burger ingredients={this.props.ingredients} />
         <ContactData makeOrder={this.makeCheckoutHandler} />
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    ingredients: state.ingredients,
+    totalPrice: state.totalPrice
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -80,4 +67,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
