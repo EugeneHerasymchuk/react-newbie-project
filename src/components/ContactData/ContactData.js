@@ -61,11 +61,11 @@ class ContactData extends Component {
     );
   };
   makeOrderHandler = () => {
-    const payloadData = Object.keys(this.state).map(key => {
-      return {
-        [key]: this.state[key].value
-      };
-    });
+    const payloadData = {
+      name: this.state['name'].value,
+      email: this.state['email'].value,
+      delivering: this.state['delivering'].value
+    };
 
     this.props.makeOrder(payloadData);
   };

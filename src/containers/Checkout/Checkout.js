@@ -22,6 +22,8 @@ class Checkout extends Component {
       loading: true
     });
 
+    console.log(contactData);
+
     await api.post('/orders.json', {
       ingredients: this.state.ingredients,
       totalPrice: this.state.totalPrice,
