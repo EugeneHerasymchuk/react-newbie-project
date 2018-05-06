@@ -5,15 +5,24 @@ import Checkout from 'src/containers/Checkout/Checkout';
 import Orders from 'src/containers/Orders/Orders';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import order from './store/modules/order';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+
+import order from './store/reducers/order';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
-      <Provider store={createStore(order)}>
+      <Provider
+        store={createStore(
+          order,
+          composeEnhancers(applyMiddleware(thunkMiddleware))
+        )}
+      >
         <BrowserRouter>
           <Layout>
             <Route path="/" exact component={BurgerBuilder} />

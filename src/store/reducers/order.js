@@ -1,4 +1,9 @@
-import { REMOVE_INGREDIENT, ADD_INGREDIENT, CLEAR_STATE } from '../actions';
+import {
+  REMOVE_INGREDIENT,
+  ADD_INGREDIENT,
+  CLEAR_STATE
+} from '../actions/actionTypes';
+
 import { prices, startPrice } from 'src/config/order';
 const initialState = {
   ingredients: {

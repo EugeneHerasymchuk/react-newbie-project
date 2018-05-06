@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { CLEAR_STATE } from 'src/store/actions';
+import { clearState } from 'src/store/actions/order';
 
 import Burger from 'src/components/Burger/Burger';
 import { CheckoutContainer } from './Checkout.css';
@@ -63,7 +63,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    clearState: () => dispatch({ type: CLEAR_STATE })
+    clearState: () => dispatch(clearState())
   };
 };
 
