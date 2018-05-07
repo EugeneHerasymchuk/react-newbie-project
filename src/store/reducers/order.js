@@ -25,7 +25,9 @@ const reducer = (state = initialState, action) => {
           ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1
         },
-        totalPrice: state.totalPrice + prices[action.ingredientName],
+        totalPrice: +(state.totalPrice + prices[action.ingredientName]).toFixed(
+          1
+        ),
         purchasable:
           state.totalPrice + prices[action.ingredientName] > startPrice
       };
@@ -40,7 +42,9 @@ const reducer = (state = initialState, action) => {
               ? 0
               : state.ingredients[action.ingredientName] - 1
         },
-        totalPrice: state.totalPrice - prices[action.ingredientName],
+        totalPrice: +(state.totalPrice - prices[action.ingredientName]).toFixed(
+          1
+        ),
         purchasable:
           state.totalPrice - prices[action.ingredientName] > startPrice
       };

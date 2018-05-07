@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addIngAsync, removeIngredient } from 'src/store/actions/order';
+import { addIngredient, removeIngredient } from 'src/store/actions/order';
 import PropTypes from 'prop-types';
 import Aux from 'src/hoc/Aux';
 import Burger from 'src/components/Burger/Burger';
@@ -95,7 +95,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addIngredient: name => {
-      dispatch(addIngAsync(name));
+      dispatch(addIngredient(name));
     },
     removeIngredient: name => {
       dispatch(removeIngredient(name));

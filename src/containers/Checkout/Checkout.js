@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { clearState } from 'src/store/actions/order';
 
+import errorHandler from 'src/hoc/errorHandler/errorHandler';
 import Burger from 'src/components/Burger/Burger';
 import { CheckoutContainer } from './Checkout.css';
 import ContactData from 'src/components/ContactData/ContactData';
@@ -27,7 +29,7 @@ class Checkout extends Component {
       loading: true
     });
 
-    await api.post('/orders.json', {
+    await api.post('/orders.jon', {
       ingredients: this.props.ingredients,
       totalPrice: this.props.totalPrice,
       customer: contactData
@@ -45,12 +47,17 @@ class Checkout extends Component {
   };
 
   render() {
-    return (
-      <div className={CheckoutContainer}>
-        <Burger ingredients={this.props.ingredients} />
-        <ContactData makeOrder={this.makeCheckoutHandler} />
-      </div>
-    );
+    let checkout = <Redirect to="/" />;
+    if (this.props.totalPrice > 2) {
+      checkout = (
+        <div className={CheckoutContainer}>
+          <Burger ingredients={this.props.ingredients} />
+          <ContactData makeOrder={this.makeCheckoutHandler} />
+        </div>
+      );
+    }
+
+    return checkout;
   }
 }
 
@@ -67,4 +74,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  errorHandler(Checkout, api)
+);
