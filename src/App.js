@@ -5,10 +5,11 @@ import Checkout from 'src/containers/Checkout/Checkout';
 import Orders from 'src/containers/Orders/Orders';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
 import order from './store/reducers/order';
+import orders from './store/reducers/orders';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +20,10 @@ class App extends Component {
     return (
       <Provider
         store={createStore(
-          order,
+          combineReducers({
+            burgerOrder: order,
+            orders: orders
+          }),
           composeEnhancers(applyMiddleware(thunkMiddleware))
         )}
       >

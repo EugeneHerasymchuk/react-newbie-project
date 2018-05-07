@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Aux from '../Aux';
-import OrderModal from '../../components/OrderModal/OrderModal';
 
 const errorHandler = (WrappedComponent, axios) => {
   return class EH extends Component {
@@ -32,15 +31,6 @@ const errorHandler = (WrappedComponent, axios) => {
     render() {
       return (
         <Aux>
-          <OrderModal
-            onCancel={() => {
-              this.setState({ error: null });
-            }}
-            title={'Error occured'}
-            visible={!!this.state.error}
-          >
-            {this.state.error && this.state.error.message}
-          </OrderModal>
           <WrappedComponent {...this.props} />
         </Aux>
       );

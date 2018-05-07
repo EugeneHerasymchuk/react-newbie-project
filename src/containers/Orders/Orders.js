@@ -1,34 +1,57 @@
 import React, { Component } from 'react';
-import api from 'src/services/ApiService';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Order from 'src/components/Order/Order';
+
+import { fetchOrders } from 'src/store/actions/orders';
 
 import { Orders } from './Orders.css';
 
-class Checkout extends Component {
-  state = {
-    orders: {},
-    loading: false
+class OrdersComponent extends Component {
+  static propTypes = {
+    fetchOrders: PropTypes.func,
+    error: PropTypes.any,
+    loading: PropTypes.bool,
+    orders: PropTypes.object
   };
 
   async componentDidMount() {
     // Get Orders from Database
-    const orders = (await api.get('/orders.json')).data;
+    console.log('getting');
+    this.props.fetchOrders();
 
-    console.log(orders);
-
-    this.setState({
-      orders: orders
-    });
+    console.log('result');
   }
 
   render() {
-    console.log(this.state.orders);
-    const orders = Object.keys(this.state.orders).map(orderKey => {
-      return <Order key={orderKey} orderData={this.state.orders[orderKey]} />;
+    const orders = Object.keys(this.props.orders).map(orderKey => {
+      return <Order key={orderKey} orderData={this.props.orders[orderKey]} />;
     });
-    console.log(orders);
-    return <div className={Orders}>{orders}</div>;
+
+    let orderSection = this.props.loading ? (
+      <div>Loading</div>
+    ) : this.props.error ? (
+      <div> Error {this.props.error} </div>
+    ) : (
+      orders
+    );
+
+    return <div className={Orders}>{orderSection}</div>;
   }
 }
 
-export default Checkout;
+const mapStateToProps = state => {
+  return {
+    orders: state.orders.orders,
+    loading: state.orders.loading,
+    error: state.orders.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchOrders: () => dispatch(fetchOrders())
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersComponent);

@@ -29,7 +29,7 @@ class Checkout extends Component {
       loading: true
     });
 
-    await api.post('/orders.jon', {
+    await api.post('/orders.json', {
       ingredients: this.props.ingredients,
       totalPrice: this.props.totalPrice,
       customer: contactData
@@ -63,8 +63,8 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    ingredients: state.burgerOrder.ingredients,
+    totalPrice: state.burgerOrder.totalPrice
   };
 };
 
