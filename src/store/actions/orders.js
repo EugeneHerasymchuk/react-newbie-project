@@ -35,7 +35,8 @@ export const fetchOrders = () => {
     [err, response] = await to(api.get('/orders.json'));
 
     if (err) {
-      dispatch(fetchOrdersFailed(err.message));
+      console.log(err.response.data);
+      dispatch(fetchOrdersFailed(err.response.data.error));
     } else {
       dispatch(fetchOrdersSuccess(response.data));
     }

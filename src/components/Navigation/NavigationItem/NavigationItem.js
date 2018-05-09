@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { NavigationItem, activeNavLink } from './NavigationItem.css';
 
-const navigationItem = ({ link, title }) => {
+const navigationItem = ({ link, title, children }) => {
   return (
     <li className={NavigationItem}>
       <NavLink to={link} exact activeClassName={activeNavLink}>
-        {title}
+        {title || children}
       </NavLink>
     </li>
   );
 };
 
 navigationItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired
+  title: PropTypes.string,
+  link: PropTypes.string.isRequired,
+  children: PropTypes.node
 };
 export default navigationItem;

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import FaBeer from 'react-icons/lib/fa/beer';
+
 import Order from 'src/components/Order/Order';
 
 import { fetchOrders } from 'src/store/actions/orders';
@@ -32,7 +34,10 @@ class OrdersComponent extends Component {
     let orderSection = this.props.loading ? (
       <div>Loading</div>
     ) : this.props.error ? (
-      <div> Error {this.props.error} </div>
+      <div>
+        {' '}
+        {this.props.error.toString()} <FaBeer />
+      </div>
     ) : (
       orders
     );
