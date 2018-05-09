@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Aux from '../Aux';
 
 const errorHandler = (WrappedComponent, axios) => {
   return class EH extends Component {
@@ -29,10 +28,10 @@ const errorHandler = (WrappedComponent, axios) => {
     }
 
     render() {
-      return (
-        <Aux>
-          <WrappedComponent {...this.props} />
-        </Aux>
+      return this.state.error ? (
+        <div>Error happened</div>
+      ) : (
+        <WrappedComponent {...this.props} />
       );
     }
   };
