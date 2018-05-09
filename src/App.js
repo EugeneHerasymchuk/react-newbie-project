@@ -3,12 +3,13 @@ import Layout from 'src/components/Layout/Layout';
 import BurgerBuilder from 'src/containers/BurgerBuilder/BurgerBuilder';
 import Checkout from 'src/containers/Checkout/Checkout';
 import Orders from 'src/containers/Orders/Orders';
+import Authentication from 'src/containers/Authentiication/Authentication';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import order from './store/reducers/order';
+import burgerOrder from './store/reducers/order';
 import orders from './store/reducers/orders';
 import auth from './store/reducers/auth';
 
@@ -22,9 +23,9 @@ class App extends Component {
       <Provider
         store={createStore(
           combineReducers({
-            burgerOrder: order,
-            orders: orders,
-            auth: auth
+            burgerOrder,
+            orders,
+            auth
           }),
           composeEnhancers(applyMiddleware(thunkMiddleware))
         )}
@@ -34,6 +35,7 @@ class App extends Component {
             <Route path="/" exact component={BurgerBuilder} />
             <Route path="/checkout" exact component={Checkout} />
             <Route path="/orders" exact component={Orders} />
+            <Route path="/auth" exact component={Authentication} />
           </Layout>
         </BrowserRouter>
       </Provider>
