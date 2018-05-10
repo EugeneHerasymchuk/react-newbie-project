@@ -27,15 +27,16 @@ export const fetchOrdersSuccess = orders => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = token => {
   return async dispatch => {
     let err, response;
     dispatch(fetchOrdersStart());
 
-    [err, response] = await to(api.get('/orders.json'));
+    [err, response] = await to(
+      api.get(token ? '/orders.json?auth=' + token : '/orders.json')
+    );
 
     if (err) {
-      console.log(err.response.data);
       dispatch(fetchOrdersFailed(err.response.data.error));
     } else {
       dispatch(fetchOrdersSuccess(response.data));

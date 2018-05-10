@@ -40,7 +40,6 @@ export const signUp = (email, password) => {
     if (error) {
       dispatch(authFailed(error));
     } else {
-      console.log(response.data);
       dispatch(signUpUser(response.data.idToken));
     }
   };
@@ -61,7 +60,6 @@ export const signIn = (email, password) => {
     if (error) {
       dispatch(authFailed(error));
     } else {
-      console.log(response.data);
       dispatch(signInUser(response.data.idToken));
     }
   };

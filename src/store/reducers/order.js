@@ -18,7 +18,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
-      console.log('add ingredient');
       return {
         ...state,
         ingredients: {
@@ -32,7 +31,6 @@ const reducer = (state = initialState, action) => {
           state.totalPrice + prices[action.ingredientName] > startPrice
       };
     case REMOVE_INGREDIENT:
-      console.log('aremove ingredient');
       return {
         ...state,
         ingredients: {
@@ -49,7 +47,6 @@ const reducer = (state = initialState, action) => {
           state.totalPrice - prices[action.ingredientName] > startPrice
       };
     case CLEAR_STATE: {
-      console.log('clear state');
       const cleanState = { ...state.ingredients };
       for (let key in cleanState) {
         cleanState[key] = 0;

@@ -15,15 +15,13 @@ class OrdersComponent extends Component {
     fetchOrders: PropTypes.func,
     error: PropTypes.any,
     loading: PropTypes.bool,
-    orders: PropTypes.object
+    orders: PropTypes.object,
+    token: PropTypes.any
   };
 
   async componentDidMount() {
     // Get Orders from Database
-    console.log('getting');
-    this.props.fetchOrders();
-
-    console.log('result');
+    this.props.fetchOrders(this.props.token);
   }
 
   render() {
@@ -50,13 +48,14 @@ const mapStateToProps = state => {
   return {
     orders: state.orders.orders,
     loading: state.orders.loading,
-    error: state.orders.error
+    error: state.orders.error,
+    token: state.auth.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrders: () => dispatch(fetchOrders())
+    fetchOrders: token => dispatch(fetchOrders(token))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(OrdersComponent);

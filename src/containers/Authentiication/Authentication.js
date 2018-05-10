@@ -27,7 +27,6 @@ class Authentication extends Component {
   }
 
   logoutUser = () => {
-    console.log(this.props);
     this.props.logout();
 
     this.redirectToHomePage();
@@ -47,7 +46,6 @@ class Authentication extends Component {
   };
 
   changeFormHandler = (name, value) => {
-    console.log(name, value);
     this.setState({
       ...this.state,
       [name]: value

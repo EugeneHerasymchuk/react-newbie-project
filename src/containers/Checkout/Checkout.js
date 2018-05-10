@@ -12,16 +12,17 @@ import ContactData from 'src/components/ContactData/ContactData';
 import api from 'src/services/ApiService';
 
 class Checkout extends Component {
-  state = {
-    loading: false
-  };
-
   static propTypes = {
     location: PropTypes.object,
     history: PropTypes.object,
     ingredients: PropTypes.object,
     totalPrice: PropTypes.number,
-    clearState: PropTypes.func
+    clearState: PropTypes.func,
+    token: PropTypes.any
+  };
+
+  state = {
+    loading: false
   };
 
   makeCheckoutHandler = async contactData => {
@@ -29,11 +30,16 @@ class Checkout extends Component {
       loading: true
     });
 
-    await api.post('/orders.json', {
-      ingredients: this.props.ingredients,
-      totalPrice: this.props.totalPrice,
-      customer: contactData
-    });
+    await api.post(
+      this.props.token
+        ? '/orders.json?auth=' + this.props.token
+        : '/orders.json',
+      {
+        ingredients: this.props.ingredients,
+        totalPrice: this.props.totalPrice,
+        customer: contactData
+      }
+    );
 
     this.setState({
       loading: false
@@ -64,7 +70,8 @@ class Checkout extends Component {
 const mapStateToProps = state => {
   return {
     ingredients: state.burgerOrder.ingredients,
-    totalPrice: state.burgerOrder.totalPrice
+    totalPrice: state.burgerOrder.totalPrice,
+    token: state.auth.token
   };
 };
 
