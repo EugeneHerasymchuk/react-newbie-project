@@ -1,7 +1,12 @@
-import { LOGIN_USER, LOGOUT_USER, AUTH_FAIL } from '../actions/actionTypes';
+import {
+  LOGIN_USER,
+  SIGN_UP,
+  LOGOUT_USER,
+  AUTH_FAIL
+} from '../actions/actionTypes';
 
 const initialState = {
-  isAuth: true,
+  isAuth: false,
   token: null,
   error: null
 };
@@ -9,6 +14,13 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_USER:
+      return {
+        ...state,
+        isAuth: true,
+        error: null,
+        token: action.token
+      };
+    case SIGN_UP:
       return {
         ...state,
         isAuth: true,

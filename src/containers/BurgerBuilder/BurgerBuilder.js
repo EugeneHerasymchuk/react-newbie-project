@@ -6,8 +6,6 @@ import Aux from 'src/hoc/Aux';
 import Burger from 'src/components/Burger/Burger';
 import BurgerControls from 'src/components/BurgerControls/BurgerControls';
 import BurgerOrderModal from '../../components/BurgerOrderModal/BurgerOrderModal';
-import api from 'src/services/ApiService';
-import errorHandler from 'src/hoc/errorHandler/errorHandler';
 
 class BurgerBuilder extends Component {
   static propTypes = {
@@ -63,14 +61,6 @@ class BurgerBuilder extends Component {
   makeOrderHandler = () => {
     this.closeModalHandler();
 
-    let queryParams = Object.keys(this.props.ingredients).map(key => {
-      return `${encodeURIComponent(key)}=${encodeURIComponent(
-        this.props.ingredients[key]
-      )}`;
-    });
-
-    queryParams.push('price=' + this.props.totalPrice);
-
     this.props.history.push('/checkout');
   };
 
@@ -103,6 +93,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  errorHandler(BurgerBuilder, api)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder);
