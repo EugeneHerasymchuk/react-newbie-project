@@ -15,7 +15,7 @@ import auth from './store/reducers/auth';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -36,6 +36,7 @@ class App extends Component {
             <Route path="/checkout" exact component={Checkout} />
             <Route path="/orders" exact component={Orders} />
             <Route path="/auth" exact component={Authentication} />
+            <Redirect to="/" />
           </Layout>
         </BrowserRouter>
       </Provider>
