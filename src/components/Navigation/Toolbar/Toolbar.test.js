@@ -11,6 +11,6 @@ describe('<Toolbar />', () => {
   it('should render 3 <NavigationItem />', () => {
     const wrapper = shallow(<Toolbar />);
 
-    expect(wrapper.find(NavigationItem)).toHaveLength(2);
+    expect(wrapper.find(NavigationItem)).toHaveLength(3);
   });
 });
