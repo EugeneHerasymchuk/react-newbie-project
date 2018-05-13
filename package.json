@@ -21,6 +21,7 @@
     "element-react": "^1.4.15",
     "element-theme-chalk": "^2.3.6",
     "element-theme-default": "^1.4.13",
+    "enzyme": "^3.3.0",
     "eslint": "4.10.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-react-app": "^2.1.0",
